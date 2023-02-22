@@ -12,5 +12,5 @@ cat > "${ROOTDIR}/AUTHORS" <<- EOF
 	#This file lists all contributors to the repository.
 	#See generate_authors.sh to make modifications.
 
-	$(git -C "$ROOTDIR" log --format="%aN <%aE>" | LC_ALL=C.UTF-8 sort -uf)
+	$(git -C "$ROOTDIR" log --format='%aN <%aE>' | LC_ALL=C.UTF-8 sort -uf)
 EOF
