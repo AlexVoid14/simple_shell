@@ -2,11 +2,10 @@
 
 /**
  * **strtow:- 'Function that splits a string into tokens'
- * @str: string member
+ * @str: member
  * @d: delimiter member
- * Return: pointer to array of strings
+ * Return: pointer to array of string
  */
-
 char **strtow(char *str, char *d)
 {
 	int i, j, k, m, numwords = 0;
@@ -27,58 +26,24 @@ char **strtow(char *str, char *d)
 			numwords++;
 		}
 	}
-	if ((!s) || (numwords == 0))
-	{
-		return (NULL);
-	}
-	while (j = 0, j < numwords || (!s[j]))
-	{
-		k = 0, m = 0;
-		s[j] = malloc((k + 1) * sizeof(char));
-		if (is_delim(str[i], d))
-		{
-			i++;
-		}
-		else if (!is_delim(str[i + k], d) && str[i + k])
-		{
-			k++;
-		}
-		free(s[k]);
-		s[j][m] = str[i++];
-		return (NULL);
-	}
-	free(s[j]);
-	return (s);
-}
-
-/**
- * **strtow2:- 'Function that splits str into words'
- * @str: the input string
- * @d: delimiter
- * Return: pointer to array of string || NULL
- */
-char **strtow2(char *str, char d)
-{
-	int i, j = 0, k = 0, m = 0, numwords = 0;
-	char **s = 0;
-
-	if (str == NULL || str[0] == 0 || numwords == 0 || !s)
+	
+	if (numwords == 0)
 	{
 		return (NULL);
 	}
 	s = malloc((1 + numwords) * sizeof(char *));
-	while (str[i] != '\0')
+	if (!s)
 	{
-		if ((str[i] != d && str[i + 1] == d) ||
-				(str[i] != d && !str[i + 1]) || str[i + 1] == d)
-		{
-			numwords++;
-		}
-		i++;
+		return (NULL);
 	}
-	while (j < numwords || k == 0)
+	for (i = 0, j = 0; j < numwords; j++)
 	{
-		if (str[i + k] != d && str[i + k] && str[i + k] != d)
+		while (is_delim(str[i], d))
+		{
+			i++;
+		}
+		k = 0;
+		while (!is_delim(str[i + k], d) && str[i + k])
 		{
 			k++;
 		}
@@ -87,14 +52,79 @@ char **strtow2(char *str, char d)
 		{
 			for (k = 0; k < j; k++)
 			{
-				free(s);
+				free(s[k]);
 			}
+			free(s);
 			return (NULL);
 		}
-		while (m < k)
+		for (m = 0; m < k; m++)
 		{
 			s[j][m] = str[i++];
 		}
+		s[j][m] = 0;
 	}
+	s[j] = NULL;
+	return (s);
+}
+
+/**
+ * **strtow2:- 'Function to split str into individual words'
+ * @str: input string
+ * @d: delimiter
+ * Return: Pointer to array of str || NULL
+ */
+char **strtow2(char *str, char d)
+{
+	char **s;
+	int i, j, k, m, numwords = 0;
+	if (str == NULL || str[0] == 0)
+	{
+		return (NULL);
+	}
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if ((str[i] != d && str[i + 1] == d) || 
+				(str[i] != d && !str[i + 1]) || str[i + 1] == d)
+		{
+			numwords++;
+		}
+	}
+	if (numwords == 0)
+	{
+		return (NULL);
+	}
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
+	{
+		return (NULL);
+	}
+	for (i = 0, j = 0; j < numwords; j++)
+	{
+		while (str[i] == d && str[i] != d)
+		{
+			i++;
+		}
+		k = 0;
+		while (str[i + k] != d && str[i + k] && str[i + k] != d)
+		{
+			k++;
+		}
+		s[j] = malloc((k + 1) * sizeof(char));
+		if (!s[j])
+		{
+			for (k = 0; k < j; k++)
+			{
+				free(s[k]);
+			}
+			free(s);
+			return (NULL);
+		}
+		for (m = 0; m < k; m++)
+		{
+			s[j][m] = str[i++];
+		}
+		s[j][m]  = 0;
+	}
+	s[j] = NULL;
 	return (s);
 }
