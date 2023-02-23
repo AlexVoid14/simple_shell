@@ -15,7 +15,7 @@ int is_chain(info_t *info, char *buf, size_t *p)
 		j++;
 		info->cmd_buf_type = CMD_OR;
 	}
-	else of (buf[j] == '&' && buf[j + 1] == '&')
+	else if (buf[j] == '&' && buf[j + 1] == '&')
 	{
 		buf[j] = 0;
 		j++;
@@ -47,7 +47,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 {
 	size_t j = *p;
 
-	if (info->cmd_buf_type == cmd_AND)
+	if (info->cmd_buf_type == CMD_AND)
 	{
 		if (info->status)
 		{
@@ -133,7 +133,7 @@ int replace_vars(info_t *info)
  * @new: new string
  * Return: 1 || 0
  */
-int replace_string(char ** old, char *new)
+int replace_string(char **old, char *new)
 {
 	free(*old);
 	*old = new;
