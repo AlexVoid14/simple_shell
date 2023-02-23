@@ -26,9 +26,9 @@ int is_delim(char c, char *delim)
 }
 
 /**
- * _isalpha - checks for alphabetic character
- * c: The character to input
- * Return: 1 if c is alphabetic, 0 otherwise
+ * _isalpha:- 'Function that checks fo alphabetiv character'
+ * @c:- Character to input
+ * Return: 1 || 0
  */
 int _isalpha(int c)
 {

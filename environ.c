@@ -14,7 +14,8 @@ int _myenv(info_t *info)
 /**
  * _getenv:- 'Function that gets the value of an environ variable'
  * @info: struct with arguments
- * Return: te value
+ * @name: parameter character
+ * Return: the value
  */
 char *_getenv(info_t *info, const char *name)
 {

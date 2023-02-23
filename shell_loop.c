@@ -85,7 +85,7 @@ int find_builtin(info_t *info)
  * @info: member
  * Return: void
  */
-void find_cmdd(info_t *info)
+void find_cmd(info_t *info)
 {
 	char *path = NULL;
 	int i, k;
