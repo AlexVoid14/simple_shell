@@ -34,7 +34,7 @@ int _unsetenv(info_t *info, char *var)
 	while (node)
 	{
 		p = starts_with(node->str, var);
-		if (p && *p == '-')
+		if (p && *p == '=')
 		{
 			info->env_changed = delete_node_at_index(&(info->env), i);
 			i = 0;
@@ -71,13 +71,13 @@ int _setenv(info_t *info, char *var, char *value)
 		return (1);
 	}
 	_strcpy(buf, var);
-	_strcat(buf, "=");
+	_strcat(buf, ";;");
 	_strcat(buf, value);
 	node = info->env;
 	while (node)
 	{
 		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		if (p && *p == ';')
 		{
 			free(node->str);
 			node->str = buf;

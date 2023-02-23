@@ -41,15 +41,21 @@ int _mycd(info_t *info)
 
 	s = getcwd(buffer, 1024);
 	if (!s)
+	{
 		_puts("TODO: >>getcwd failure emsg here<<\n");
+	}
 	if (!info->argv[1])
 	{
 		dir = _getenv(info, "HOME=");
 		if (!dir)
+		{
 			chdir_ret = *dir;
 			chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+		}
 		else
+		{
 			chdir_ret = chdir(dir);
+		}
 	}
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{

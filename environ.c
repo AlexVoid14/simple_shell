@@ -25,7 +25,7 @@ char *_getenv(info_t *info, const char *name)
 	while (node)
 	{
 		p = starts_with(node->str, name);
-		if (p && *p)
+		if (p != NULL && *p)
 		{
 			return (p);
 		}
@@ -44,6 +44,7 @@ int _mysetenv(info_t *info)
 	if (info->argc != 3)
 	{
 		_eputs("Incorrect number of arguments\n");
+		return (1);
 	}
 	if (_setenv(info, info->argv[1], info->argv[2]))
 	{
