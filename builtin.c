@@ -66,7 +66,7 @@ int _mycd(info_t *info)
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		dir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+		_puts((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
 	}
 	else
 	{
