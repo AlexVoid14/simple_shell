@@ -40,20 +40,20 @@ char *_strncpy(char *dest, char *src, int n)
  */
 char *_strncat(char *dest, char *src, int n)
 {
-        int i, j = 0;
-        char *s = dest;
+	int i, j = 0;
+	char *s = dest;
 
-        while (dest[i])
-        {
-                dest[i] = src[j];
-                i++;
-                j++;
-        }
-        if (j < n)
-        {
-                dest[i] = '\0';
-        }
-        return (s);
+	while (dest[i])
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	if (j < n)
+	{
+		dest[i] = '\0';
+	}
+	return (s);
 }
 
 /**

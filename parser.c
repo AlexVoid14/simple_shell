@@ -57,7 +57,7 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 {
 	int i, current_position = 0;
 	char *path;
-	
+
 	if (!pathstr)
 	{
 		return (NULL);
