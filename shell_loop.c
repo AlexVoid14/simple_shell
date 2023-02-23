@@ -36,19 +36,15 @@ int hsh(info_t *info, char **av)
 	}
 	write_history(info);
 	free_info(info, 1);
-	if (!interactive(info) && info->status)
+	if (!interactive(info) && info->status && (info->err_num == -1))
 	{
 		exit(info->status);
 	}
-	if (builtin_ret == -2)
+	else if (builtin_ret == -2)
 	{
-		if (info->err_num == -1)
-		{
-			exit(info->status);
-		}
-		exit(info->err_num);
+		return (builtin_ret);
 	}
-	return (builtin_ret);
+	exit(info->status);
 }
 
 /**
