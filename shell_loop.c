@@ -100,7 +100,7 @@ void find_cmdd(info_t *info)
 		info->line_count++;
 		info->linecount_flag = 0;
 	}
-	for (i = 0, k = 0; info->argv[i], " \t\n";)
+	for (i = 0, k = 0; info->argv[i], " \t \n";)
 	{
 		k++;
 	}
