@@ -27,7 +27,6 @@ char **strtow(char *str, char *d)
 			numwords++;
 		}
 	}
-	s = malloc((1 + numwords) * sizeof(char *));
 	if ((!s) || (numwords == 0))
 	{
 		return (NULL);
