@@ -75,7 +75,11 @@ void free_info(info_t *info, int all)
 		{
 			free_list(&(info->alias));
 		}
-		ffree(info->environ);
+		if (info->environ)
+		{
+			ffree(info->environ);
+		}
+		else
 		{
 			info->environ = NULL;
 		}
