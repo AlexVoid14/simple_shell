@@ -11,6 +11,7 @@ char **get_environ(info_t *info)
 		info->environ = list_to_strings(info->env);
 		info->env_changed = 0;
 	}
+
 	return (info->environ);
 }
 
@@ -71,13 +72,13 @@ int _setenv(info_t *info, char *var, char *value)
 		return (1);
 	}
 	_strcpy(buf, var);
-	_strcat(buf, ";;");
+	_strcat(buf, "=");
 	_strcat(buf, value);
 	node = info->env;
 	while (node)
 	{
 		p = starts_with(node->str, var);
-		if (p && *p == ';')
+		if (p && *p == '=')
 		{
 			free(node->str);
 			node->str = buf;

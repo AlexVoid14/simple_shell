@@ -20,7 +20,7 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 		*buf = NULL;
 		signal(SIGINT, sigintHandler);
 #if USE_GETLINE
-		r = _getline(buf, &len_p, stdin);
+		r = getline(buf, &len_p, stdin);
 #else
 		r = _getline(info, buf, &len_p);
 #endif
@@ -122,8 +122,8 @@ int _getline(info_t *info, char **ptr, size_t *length)
 	static char buf[READ_BUF_SIZE];
 	static size_t i, len;
 	size_t k;
-	ssize_t r, s = 0;
-	char *p, *new_p, *c;
+	ssize_t r = 0, s = 0;
+	char *p = NULL, *new_p = NULL, *c;
 
 	p = *ptr;
 	if (p && length)

@@ -77,6 +77,7 @@ char **strtow2(char *str, char d)
 {
 	char **s;
 	int i, j, k, m, numwords = 0;
+
 	if (str == NULL || str[0] == 0)
 	{
 		return (NULL);

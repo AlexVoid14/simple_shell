@@ -25,6 +25,7 @@ int _myexit(info_t *info)
 		info->err_num = _erratoi(info->argv[1]);
 		return (-2);
 	}
+	info->err_num = -1;
 	return (-2);
 }
 
@@ -49,8 +50,8 @@ int _mycd(info_t *info)
 		dir = _getenv(info, "HOME=");
 		if (!dir)
 		{
-			chdir_ret = *dir;
-			chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+			chdir_ret = /*TODO: What should this be? */
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
 		}
 		else
 		{
@@ -66,7 +67,8 @@ int _mycd(info_t *info)
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		_puts((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+		chdir_ret = /*TODO:What should this be?*/
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
 	}
 	else
 	{

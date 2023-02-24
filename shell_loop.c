@@ -34,17 +34,22 @@ int hsh(info_t *info, char **av)
 		}
 		free_info(info, 0);
 	}
+
 	write_history(info);
 	free_info(info, 1);
-	if (!interactive(info) && info->status && (info->err_num == -1))
+	if (!interactive(info) && info->status)
 	{
 		exit(info->status);
 	}
-	else if (builtin_ret == -2)
+	if (builtin_ret == -2)
 	{
-		return (builtin_ret);
+		if (info->err_num == -1)
+		{
+			exit(info->status);
+		}
+		exit(info->err_num);
 	}
-	exit(info->status);
+	return (builtin_ret);
 }
 
 /**
@@ -54,8 +59,7 @@ int hsh(info_t *info, char **av)
  */
 int find_builtin(info_t *info)
 {
-	int i;
-	int  built_in_ret = -1;
+	int i, built_in_ret = -1;
 	builtin_table builtintbl[] = {
 		{"exit", _myexit},
 		{"env", _myenv},
@@ -96,16 +100,19 @@ void find_cmd(info_t *info)
 		info->line_count++;
 		info->linecount_flag = 0;
 	}
-	for (i = 0, k = 0; info->argv[i]; i++)
+	for (i = 0, k = 0; info->arg[i]; i++)
 	{
-		k++;
+		if (!is_delim(info->arg[i], "\t\n"))
+		{
+			k++;
+		}
 	}
 	if (!k)
 	{
 		return;
 	}
 
-	path = find_path(info, _getenv(info, "PATH"), info->argv[0]);
+	path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
 	if (path)
 	{
 		info->path = path;
@@ -113,12 +120,12 @@ void find_cmd(info_t *info)
 	}
 	else
 	{
-		if ((interactive(info) || _getenv(info, "PATH") ||
-					info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
+		if ((interactive(info) || _getenv(info, "PATH=")
+				|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
 		{
 			fork_cmd(info);
 		}
-		else if (*(info->arg) != 'n')
+		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
 			print_error(info, "Not found\n");
