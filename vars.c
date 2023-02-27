@@ -119,6 +119,7 @@ int replace_vars(info_t *info)
 		{
 			continue;
 		}
+
 		if (!_strcmp(info->argv[i], "$?"))
 		{
 			replace_string(&(info->argv[i]),
